@@ -1,6 +1,6 @@
-##Übungsblatt 1
+## Übungsblatt 1
 
-###Aufgabe 1
+### Aufgabe 1
 a) Elemente tauschen
 
 ```xml
@@ -57,7 +57,7 @@ f) Geschachtelte Listen umkehren
 
 ```
 
-###Aufgabe 2
+### Aufgabe 2
 a) Darstellung eines Binärbaums
 
 Das erste Element ist die Wurzel. Die anderen beiden sind Knoten.<br />

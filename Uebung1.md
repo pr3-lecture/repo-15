@@ -36,15 +36,22 @@ c) Länge einer Liste berechnen
 d) Länge einer geschachtelten Liste berechnen
 
 ```xml
+(defun my-lengthR (l)
+  (do (
+      (listneu l (cdr listneu))
+      (anz 0 (if (atom (car listneu)) (+ anz 1) (+ anz (my-lengthR (car listneu))))))
+      ((null listneu) anz)
+  )
+)
 ```
 
 e) Listen umkehren
 
 ```xml
 (defun my-reverse (l) 
-  (cond(
-       (null l) '())	
-       (T (append (my-reverse (cdr l)) (list (car l))))
+  (cond (
+        (null l) '())	
+        (T (append (my-reverse (cdr l)) (list (car l))))
   )
 )
 ```

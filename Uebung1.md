@@ -38,7 +38,7 @@ d) Länge einer geschachtelten Liste berechnen
 ```xml
 (defun my-lengthR (l)
   (cond ((null l) 0)
-        ((listp (car l))  (+ (my-lengthR (car l)) (my-lengthR (cdr l))))
+        ((listp (car l)) (+ (my-lengthR (car l)) (my-lengthR (cdr l))))
         (T (+ 1 (my-lengthR (cdr l))))
   )
 )

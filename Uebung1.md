@@ -70,7 +70,20 @@ f) Geschachtelte Listen umkehren
 ### Aufgabe 2
 a) Darstellung eines Binärbaums
 
-Das erste Element ist die Wurzel. Die anderen beiden sind Knoten.<br />
-Ein Knoten besteht wiederrum aus sich selbst und ein/mehreren Knoten.
+```xml
+(8 (4 ((2) (3)))
+   (6 ((5) (9)))
+)
+```
+entspricht
+
+```xml
+      8
+    /   \
+  4       6
+ / \    /  \
+2   3   5   9
+```
+
 
 b) Baumtraversierung

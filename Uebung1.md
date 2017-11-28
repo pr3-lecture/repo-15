@@ -87,3 +87,37 @@ entspricht
 
 
 b) Baumtraversierung
+
+Um die Traversierung zu realisieren, werden zusätzliche Hilfsmethoden "left-tree" und "right-tree" benötigt, welche jeweils den linken bzw. rechten Teilbaum ausgeben.
+
+* Inorder: Erst der linke Teilbaum, dann der Knoten, dann der rechte Teilbaum
+
+```xml
+Pseudocode:
+(defun inorder (tree)
+  (inorder (left-tree tree))
+  (print tree)
+  (inorder (right-tree tree))
+)
+```
+
+* Preorder: Erst der Knoten, dann der linke Teilbaum, dann der echte Teilbaum
+
+```xml
+(defun preorder (tree)
+  (print tree)
+  (preorder (left-tree tree))
+  (preorder (right-tree tree))
+)
+```
+
+* Postorder: Erst der linke Teilbaum, dann der rechte Teilbaum, dann den Knoten
+
+```xml
+(defun postorder (tree)
+  (postorder (left-tree tree))
+  (postorder (right-tree tree)
+  (print tree)
+)
+```
+

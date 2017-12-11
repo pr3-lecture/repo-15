@@ -33,6 +33,17 @@ d) Size
 )
 ```
 
+e) Height
+
+```xml
+(defun height (tree)
+  (if (endp tree)
+    0
+    (+ 1 (max (height (cadr tree)) (height (caddr tree))))
+  )
+)
+```
+
 i) isEmpty
 
 ```xml

@@ -19,9 +19,7 @@ Fügt val in den Baum tree ein und gibt als Ergebnis den ergänzten Baum zurück
 Fügt die int-Werte, die in der Datei stehen in den Baum ein.
 
 ```xml
-(defun insertFile (tree filename)
-  (open "baum.txt" :output)
-)
+...
 ```
 
 #### contains tree val
@@ -42,8 +40,8 @@ Ermittelt die Anzahl der Knoten im Baum.
 ```xml
 (defun size (tree)
   (cond ((null tree) nil)
-        ((listp (car tree)) (append (my-reverseR (cdr tree)) (list (my-reverseR (car tree)))))
-        (T (append (my-reverseR (cdr tree)) (list (car tree))))
+        ((listp (car tree)) (append (size (cdr tree)) (list (size (car tree)))))
+        (T (append (size (cdr tree)) (list (car tree))))
   )
 )
 ```

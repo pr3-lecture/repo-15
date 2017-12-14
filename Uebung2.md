@@ -10,9 +10,7 @@ Mustafa Yildiz, 1411880, repo-16<br />
 Fügt val in den Baum tree ein und gibt als Ergebnis den ergänzten Baum zurück. Am besten wird dabei ein neuer Baum erzeugt.
 
 ```xml
-(defun insert (tree val)
-  (append tree (list val))
-)
+...
 ```
 
 #### insert tree filename
@@ -39,9 +37,9 @@ Ermittelt die Anzahl der Knoten im Baum.
 
 ```xml
 (defun size (tree)
-  (cond ((null tree) nil)
-        ((listp (car tree)) (append (size (cdr tree)) (list (size (car tree)))))
-        (T (append (size (cdr tree)) (list (car tree))))
+  (cond ((null tree) 0)
+        ((listp (car tree)) (+ (size (car tree)) (size (cdr tree))))
+        (T (+ 1 (size (cdr tree))))
   )
 )
 ```
@@ -95,7 +93,7 @@ true genau dann, wenn der Baum leer ist.
 
 ```xml
 (defun isEmpty (tree)
-  (if (null tree) 'TRUE 'FALSE))
+  (if (null tree) T NIL)
 )
 ```
 

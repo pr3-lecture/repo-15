@@ -10,7 +10,14 @@ Mustafa Yildiz, 1411880, repo-16<br />
 Fügt val in den Baum tree ein und gibt als Ergebnis den ergänzten Baum zurück. Am besten wird dabei ein neuer Baum erzeugt.
 
 ```xml
-...
+(defun insert (tree val)
+  (cond (
+        (null tree) (append (list val)))
+        ((< val (car tree)) (append (list (car tree) (cadr tree) (insert (caddr tree) val))))
+        ((> val (car tree)) (append (list (car tree) (insert (cadr tree) val) (caddr tree))))
+        (T (append (list (car tree) (cadr tree) (caddr tree))))
+  )
+)
 ```
 
 #### insert tree filename
@@ -25,10 +32,9 @@ Testet, ob val im Baum vorhanden ist.
 
 ```xml
 (defun contains (tree val)
-(if (endp tree) 
-    nil
-    (or (equal val (car tree))
-    (or (contains (cadr tree) val) (contains (caddr tree) val))))
+  (if (endp tree) nil
+  (or (equal val (car tree))
+  (or (contains (cadr tree) val) (contains (caddr tree) val))))
 )
 ```
 

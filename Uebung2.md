@@ -75,7 +75,7 @@ Liefert das kleinste Element im Baum.
 (defun getMin (tree)
   (if (endp tree)
   0
-  (min (car tree) (min (getMax (cadr tree)) (getMax (caddr tree))))
+  (min (car tree) (min (getMin (cadr tree)) (getMin (caddr tree))))
   )
 )
 ```

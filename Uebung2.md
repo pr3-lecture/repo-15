@@ -107,7 +107,14 @@ true genau dann, wenn der Baum leer ist.
 Fügt alle Elemente des übergebenen Baums (otherTree) in den aktuellen Baum tree ein.
 
 ```xml
-...
+(defun addAll (tree otherTree)
+    (setq otherTree (printLevelorder otherTree))
+    (loop
+    (setq tree (insert tree (car otherTree)))
+    (setq otherTree (cdr otherTree))
+    (when (endp otherTree) (return tree))
+)
+)
 ```
 
 #### printLevelorder tree

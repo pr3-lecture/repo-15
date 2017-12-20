@@ -1,2 +1,7 @@
 **/bin/
 eclipse-workspace/
+.DS_Store
+crypter/cryptoTest.o
+crypter/crypto.o
+crypter/encrypt
+crypter/decrypt

@@ -2,6 +2,8 @@
 #include <stdio.h>
 #include "crypto.h"
 
+//#define DEBUG
+
 int main(int args, char** argv) {
     KEY k;
     // 1. Parameter: KEY
@@ -19,7 +21,6 @@ int main(int args, char** argv) {
         FILE* f = fopen(argv[2], "r");
 
         if (f != NULL) {
-            //fscanf(f,"%[^\n]", eingabe);
             fgets(eingabe, 100, f);
             fclose(f);
         }
@@ -30,10 +31,10 @@ int main(int args, char** argv) {
 
     char ergebnis[strlen(eingabe)];
 
-    //argv[0] = "encrypt";
+#ifdef DEBUG
+    argv[0] = "encrypt";
+#endif
     if (strcmp(argv[0], "encrypt") == 0) {
-    //k.type = 2;
-    //if (k.type == 1) {
         if (encrypt(k, eingabe, ergebnis) == 0) {
             printf("Nachricht: %s\nKey: %s\nErgebnis: %s\n", eingabe, argv[1], ergebnis);
         }

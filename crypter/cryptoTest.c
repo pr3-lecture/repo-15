@@ -5,6 +5,7 @@
 #define mu_assert(message, test) do { if (!(test)) return message; } while (0)
 #define mu_run_test(test) do { char *message = test(); tests_run++; \
                                 if (message) return message; } while (0)
+//#define DEBUG
 
 int tests_run = 0;
 static char* testVerschluesseln() {
@@ -15,6 +16,9 @@ static char* testVerschluesseln() {
     char ergebnis[strlen(text)];
 
     encrypt(k, text, ergebnis);
+#ifdef DEBUG
+    printf("Erwartetes Ergebnis: %s, IST-Ergebnis: %s\n", erwartetesErgebnis, ergebnis);
+#endif
     mu_assert("Verschluesselung erfolgreich", strcmp(erwartetesErgebnis, ergebnis) == 0);
     return 0;
 }
@@ -27,6 +31,9 @@ static char* testEntschluesseln() {
     char ergebnis[strlen(text)];
 
     decrypt(k, text , ergebnis);
+#ifdef DEBUG
+    printf("Erwartetes Ergebnis: %s, IST-Ergebnis: %s\n", erwartetesErgebnis, ergebnis);
+#endif
     mu_assert("Entschluesselung erfolgreich", strcmp(erwartetesErgebnis, ergebnis) == 0);
     return 0;
 }

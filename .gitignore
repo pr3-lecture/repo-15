@@ -5,3 +5,5 @@ crypter/cryptoTest.o
 crypter/crypto.o
 crypter/encrypt
 crypter/decrypt
+crypter/Main.o
+crypter/test

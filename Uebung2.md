@@ -91,7 +91,19 @@ Entfernt val aus dem Baum und gibt als Ergebnis den geänderten Baum zurück.
 Wenn ein innerer Knoten gelöscht wird, dann erstetzen Sie ihn durch den kleinsten Knoten in dessen rechtem Teilbaum.
 
 ```xml
-...
+(defun remove_val (tree value)
+  (cond
+  ((null tree) nil)
+  ((> value (car tree)) (append (list (car tree)) (list (cadr tree)) (list (remove_val (caddr tree) value))))
+  ((< value (car tree)) (append (list (car tree)) (list (remove_val (cadr tree) value)) (list (caddr tree))))
+  (t (cond
+    ((and (null (cadr tree)) (null (caddr tree))) nil)
+    ((null (caddr tree)) (append (list (getMax (cadr tree))) (list (remove_val (cadr tree) (getMax (cadr tree)))) (list (caddr tree))))
+    (t (append (list (getMin (caddr tree))) (list(cadr tree)) (list (remove_val (caddr tree) (getMin (caddr tree))))))
+	)
+  )
+  )
+)
 ```
 
 #### isEmpty tree

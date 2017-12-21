@@ -68,8 +68,8 @@ Liefert das größte Element im Baum.
 ```xml
 (defun getMax (tree)
   (if (endp tree)
-  0
-  (max (car tree) (max (getMax (cadr tree)) (getMax (caddr tree))))
+    0
+    (max (car tree) (max (getMax (cadr tree)) (getMax (caddr tree))))
   )
 )
 ```
@@ -80,8 +80,8 @@ Liefert das kleinste Element im Baum.
 ```xml
 (defun getMin (tree)
   (if (endp tree)
-  0
-  (min (car tree) (min (getMin (cadr tree)) (getMin (caddr tree))))
+    0
+    (min (car tree) (min (getMin (cadr tree)) (getMin (caddr tree))))
   )
 )
 ```
@@ -93,15 +93,15 @@ Wenn ein innerer Knoten gelöscht wird, dann erstetzen Sie ihn durch den kleinst
 ```xml
 (defun remove_val (tree value)
   (cond
-  ((null tree) nil)
-  ((> value (car tree)) (append (list (car tree)) (list (cadr tree)) (list (remove_val (caddr tree) value))))
-  ((< value (car tree)) (append (list (car tree)) (list (remove_val (cadr tree) value)) (list (caddr tree))))
-  (t (cond
-    ((and (null (cadr tree)) (null (caddr tree))) nil)
-    ((null (caddr tree)) (append (list (getMax (cadr tree))) (list (remove_val (cadr tree) (getMax (cadr tree)))) (list (caddr tree))))
-    (t (append (list (getMin (caddr tree))) (list(cadr tree)) (list (remove_val (caddr tree) (getMin (caddr tree))))))
-	)
-  )
+        ((null tree) nil)
+        ((> value (car tree)) (append (list (car tree)) (list (cadr tree)) (list (remove_val (caddr tree) value))))
+        ((< value (car tree)) (append (list (car tree)) (list (remove_val (cadr tree) value)) (list (caddr tree))))
+        (t (cond
+                 ((and (null (cadr tree)) (null (caddr tree))) nil)
+                 ((null (caddr tree)) (append (list (getMax (cadr tree))) (list (remove_val (cadr tree) (getMax (cadr tree)))) (list (caddr tree))))
+                 (t (append (list (getMin (caddr tree))) (list(cadr tree)) (list (remove_val (caddr tree) (getMin (caddr tree))))))
+	      )
+        )
   )
 )
 ```
@@ -120,12 +120,12 @@ Fügt alle Elemente des übergebenen Baums (otherTree) in den aktuellen Baum tre
 
 ```xml
 (defun addAll (tree otherTree)
-    (setq otherTree (printLevelorder otherTree))
-    (loop
+  (setq otherTree (printLevelorder otherTree))
+  (loop
     (setq tree (insert tree (car otherTree)))
     (setq otherTree (cdr otherTree))
     (when (endp otherTree) (return tree))
-)
+  )
 )
 ```
 
@@ -134,23 +134,23 @@ Gibt Baum in Levelorder aus.
 
 ```xml
 (defun printGivenLevel (tree level)
-    (if (endp tree)
+  (if (endp tree)
     0
     (cond ((= 1 level)  (list (car tree)))
-        ((append (printGivenLevel (cadr tree) (1- level))
-        (printGivenLevel (caddr tree) (1- level))))
+          ((append (printGivenLevel (cadr tree) (1- level))
+          (printGivenLevel (caddr tree) (1- level))))
     )
-    )
+  )
 )
     
 (defun printLevelorder (tree)
-    (setq h (height tree))
-    (setq i 1)
-    (setq r (list (car tree)))
-    (loop
+  (setq h (height tree))
+  (setq i 1)
+  (setq r (list (car tree)))
+  (loop
     (setq i  (+ i 1))
     (setq r (append r (printGivenLevel tree i)))
     (when (= i h) (return r))
-    )
+  )
 )
 ```

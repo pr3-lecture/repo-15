@@ -6,6 +6,12 @@
 #define DECRYPT 1
 //#define DEBUG
 
+/**
+ * Gibt die Stelle eines Buchstaben in einem uebergebenen Alphabet zurueck
+ * @param x Buchstabe
+ * @param alphabet Alphabet
+ * @return Stelle des Buchstabens im Alphabet
+ */
 int stelleImAlphabet(char x, const char* alphabet) {
     for (int i = 0; i < strlen(alphabet); i++) {
         if (alphabet[i] == x) {
@@ -58,15 +64,15 @@ int pruefeGueltigeZeichen(int modus, const char* message) {
  * @return 0 wenn alles ok, ansonsten Fehlercode
  */
 int inputUndKeyPruefen(KEY k, char* input, int modus) {
-    // Laenge des Keys pruefen
+    /* Laenge des Keys pruefen */
     if (strlen(k.chars) < 2) {
         printf("Key zu kurz");
         return E_KEY_TOO_SHORT;
     }
 
-    // Encrypt
+    /* Encrypt */
     if (modus == ENCRYPT) {
-        // Inhalt der Nachricht pruefen
+        /* Inhalt der Nachricht pruefen */
         if (pruefeGueltigeZeichen(ENCRYPT, input) == 0) {
             printf("Ungueltige Zeichen in der Nachricht");
             return E_MESSAGE_ILLEGAL_CHAR;
@@ -77,14 +83,14 @@ int inputUndKeyPruefen(KEY k, char* input, int modus) {
             return E_KEY_ILLEGAL_CHAR;
         }
     } else {
-        // Decrypt
-        // Inhalt des Inputs pruefen
+        /* Decrypt */
+        /* Inhalt des Inputs pruefen */
         if (pruefeGueltigeZeichen(DECRYPT, input) == 0) {
             printf("Ungueltige Zeichen in der Nachricht");
             return E_CYPHER_ILLEGAL_CHAR;
         }
 
-        // Inhalt des Keys pruefen
+        /* Inhalt des Keys pruefen */
         if (pruefeGueltigeZeichen(DECRYPT, k.chars) == 0) {
             printf("Ungueltige Zeichen im Key");
             return E_KEY_ILLEGAL_CHAR;
@@ -104,7 +110,7 @@ int inputUndKeyPruefen(KEY k, char* input, int modus) {
  */
 void crypt(KEY key, const char* input, char* output, int modus, int len) {
     for (int i = 0; i < len; i++) {
-        // Position im Key anpassen, da Key kuerzer sein kann als Message
+        /* Position im Key anpassen, da Key kuerzer sein kann als Message */
         int korrigiertePosition = (int) (i % strlen(key.chars));
         int positionKey = stelleImAlphabet(key.chars[korrigiertePosition], KEY_CHARACTERS) + 1;
         int positionMessage = 0;
@@ -113,11 +119,11 @@ void crypt(KEY key, const char* input, char* output, int modus, int len) {
         printf("Zaehler: %d, Position in Key: %d\n", i, korrigiertePosition);
 #endif
 
-        // Encrypt
+        /* Encrypt */
         if (modus == ENCRYPT) {
             positionMessage = stelleImAlphabet(input[i], MESSAGE_CHARACTERS) + 1;
         } else {
-            // Decrypt
+            /* Decrypt */
             positionMessage= stelleImAlphabet(input[i], CYPHER_CHARACTERS);
         }
 
@@ -132,7 +138,7 @@ void crypt(KEY key, const char* input, char* output, int modus, int len) {
         }
     }
 
-    // '\0' anhaengen
+    /* '\0' anhaengen */
     output[strlen(input)] = '\0';
 }
 
@@ -142,7 +148,7 @@ void crypt(KEY key, const char* input, char* output, int modus, int len) {
  * @param key Key zum Verschluesseln
  * @param input Nachricht in Klartext
  * @param output Verschluesselte Nachricht
- * @return
+ * @return 0 wenn alles ok, ansonsten Fehlercode
  */
 int encrypt(KEY key, const char* input, char* output) {
     if (inputUndKeyPruefen(key, (char *) input, ENCRYPT) == 0) {
@@ -163,7 +169,7 @@ int encrypt(KEY key, const char* input, char* output) {
  * @param key Key zum Entschluesseln
  * @param cypherText Verschluesselte Nachricht
  * @param output Nachricht in Klartext
- * @return
+ * @return 0 wenn alles ok, ansonsten Fehlercode
  */
 int decrypt(KEY key, const char* cypherText, char* output) {
     if (inputUndKeyPruefen(key, (char *) cypherText, DECRYPT) == 0) {

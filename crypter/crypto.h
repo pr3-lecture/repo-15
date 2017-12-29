@@ -17,6 +17,10 @@
 #define MESSAGE_CHARACTERS "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 #define CYPHER_CHARACTERS "@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_"
 
+/** Constants for encryption and decryption. */
+#define ENCRYPT 0
+#define DECRYPT 1
+
 /**
  * Key used in de- and encryption.
  */

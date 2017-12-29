@@ -6,16 +6,16 @@
 
 int main(int args, char** argv) {
     KEY k;
-    // 1. Parameter: KEY
+    /* 1. Parameter: KEY */
     k.chars = argv[1];
 
-    // Wenn Key nicht vorhanden ist, wird die Routine abgebrochen
+    /* Wenn Key nicht vorhanden ist, wird die Routine abgebrochen */
     if (argv[1] == NULL) {
         printf("KEY fehlt!");
         return -1;
     }
 
-    // 2. Parameter vorhanden?
+    /* 2. Parameter vorhanden? */
     char eingabe[100];
     if (argv[2] != NULL) {
         FILE* f = fopen(argv[2], "r");
@@ -32,9 +32,10 @@ int main(int args, char** argv) {
     char ergebnis[strlen(eingabe)];
 
 #ifdef DEBUG
-    argv[0] = "encrypt";
+    printf("Modus: %s\n", argv[0]);
 #endif
-    if (strcmp(argv[0], "encrypt") == 0) {
+
+    if (strcmp(argv[0], "./encrypt") == 0) {
         if (encrypt(k, eingabe, ergebnis) == 0) {
             printf("Nachricht: %s\nKey: %s\nErgebnis: %s\n", eingabe, argv[1], ergebnis);
         }

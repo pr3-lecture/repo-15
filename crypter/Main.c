@@ -4,6 +4,31 @@
 
 //#define DEBUG
 
+/**
+ * Extrahiert aus dem Aufrufpfad den Modus
+ * @param aufrufpfad Aufrufpfad
+ * @return 0 (ENCRYPT) / 1 (DECRYPT)
+ */
+int getModus(char* aufrufpfad) {
+    char* neu;
+    char* erg;
+
+    neu = strtok(aufrufpfad, "/");
+    while (neu != NULL) {
+        erg = neu;
+
+        if (strcmp(erg, "encrypt") == 0) {
+            return ENCRYPT;
+        } else if (strcmp(erg, "decrypt") == 0) {
+            return DECRYPT;
+        } else {
+            neu = strtok(NULL, "/");
+        }
+    }
+
+    return -1;
+}
+
 int main(int args, char** argv) {
     KEY k;
     /* 1. Parameter: KEY */
@@ -35,11 +60,14 @@ int main(int args, char** argv) {
     printf("Modus: %s\n", argv[0]);
 #endif
 
-    if (strcmp(argv[0], "./encrypt") == 0) {
+    /* Modus bestimmen */
+    int modus = getModus(argv[0]);
+
+    if (modus == ENCRYPT) {
         if (encrypt(k, eingabe, ergebnis) == 0) {
             printf("Nachricht: %s\nKey: %s\nErgebnis: %s\n", eingabe, argv[1], ergebnis);
         }
-    } else {
+    } else if (modus == DECRYPT) {
         if (decrypt(k, eingabe, ergebnis) == 0) {
             printf("Nachricht: %s\nKey: %s\nErgebnis: %s\n", eingabe, argv[1], ergebnis);
         }

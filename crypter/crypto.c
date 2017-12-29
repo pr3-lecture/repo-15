@@ -2,8 +2,6 @@
 #include <memory.h>
 #include "crypto.h"
 
-#define ENCRYPT 0
-#define DECRYPT 1
 //#define DEBUG
 
 /**
@@ -141,7 +139,6 @@ void crypt(KEY key, const char* input, char* output, int modus, int len) {
     /* '\0' anhaengen */
     output[strlen(input)] = '\0';
 }
-
 
 /**
  * Verschluesselt eine Nachricht

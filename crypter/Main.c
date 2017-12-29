@@ -10,19 +10,19 @@
  * @return 0 (ENCRYPT) / 1 (DECRYPT)
  */
 int getModus(char* aufrufpfad) {
-    char* neu;
-    char* erg;
+    char* ptr;
+    char ptr_zugeschnitten[8];
 
-    neu = strtok(aufrufpfad, "/");
-    while (neu != NULL) {
-        erg = neu;
+    ptr = strtok(aufrufpfad, "/");
+    while (ptr != NULL) {
 
-        if (strcmp(erg, "encrypt") == 0) {
-            return ENCRYPT;
-        } else if (strcmp(erg, "decrypt") == 0) {
-            return DECRYPT;
+        strncpy(ptr_zugeschnitten, ptr, 7);
+        if (strcmp(ptr_zugeschnitten, "encrypt") == 0) {
+            return 0;
+        } else if (strcmp(ptr_zugeschnitten, "decrypt") == 0) {
+            return 1;
         } else {
-            neu = strtok(NULL, "/");
+            ptr = strtok(NULL, "/");
         }
     }
 

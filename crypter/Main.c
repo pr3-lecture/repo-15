@@ -1,6 +1,7 @@
 #include <memory.h>
 #include <stdio.h>
 #include "crypto.h"
+#include "regex.h"
 
 //#define DEBUG
 
@@ -10,23 +11,28 @@
  * @return 0 (ENCRYPT) / 1 (DECRYPT)
  */
 int getModus(char* aufrufpfad) {
-    char* ptr;
-    char ptr_zugeschnitten[8];
+    regex_t regex;
+    int res;
+    int ergebnis = -1;
 
-    ptr = strtok(aufrufpfad, "/");
-    while (ptr != NULL) {
+    /* Encrypt */
+    regcomp(&regex, "encrypt", 0);
+    res = regexec(&regex, aufrufpfad, 0, NULL, 0);
 
-        strncpy(ptr_zugeschnitten, ptr, 7);
-        if (strcmp(ptr_zugeschnitten, "encrypt") == 0) {
-            return 0;
-        } else if (strcmp(ptr_zugeschnitten, "decrypt") == 0) {
-            return 1;
-        } else {
-            ptr = strtok(NULL, "/");
-        }
+    if (!res) {
+        ergebnis = ENCRYPT;
     }
 
-    return -1;
+    /* Decrypt */
+    regcomp(&regex, "decrypt", 0);
+    res = regexec(&regex, aufrufpfad, 0, NULL, 0);
+
+    if (!res) {
+        ergebnis = DECRYPT;
+    }
+
+    regfree(&regex);
+    return ergebnis;
 }
 
 int main(int args, char** argv) {

@@ -64,7 +64,7 @@ int pruefeGueltigeZeichen(int modus, const char* message) {
 int inputUndKeyPruefen(KEY k, char* input, int modus) {
     /* Laenge des Keys pruefen */
     if (strlen(k.chars) < 2) {
-        printf("Key zu kurz");
+        fprintf(stderr, "Key zu kurz\n");
         return E_KEY_TOO_SHORT;
     }
 
@@ -72,25 +72,25 @@ int inputUndKeyPruefen(KEY k, char* input, int modus) {
     if (modus == ENCRYPT) {
         /* Inhalt der Nachricht pruefen */
         if (pruefeGueltigeZeichen(ENCRYPT, input) == 0) {
-            printf("Ungueltige Zeichen in der Nachricht");
+            fprintf(stderr, "Ungueltige Zeichen in der Nachricht\n");
             return E_MESSAGE_ILLEGAL_CHAR;
         }
 
         if (pruefeGueltigeZeichen(ENCRYPT, k.chars) == 0) {
-            printf("Ungueltige Zeichen im Key");
+            fprintf(stderr, "Ungueltige Zeichen im Key\n");
             return E_KEY_ILLEGAL_CHAR;
         }
     } else {
         /* Decrypt */
         /* Inhalt des Inputs pruefen */
         if (pruefeGueltigeZeichen(DECRYPT, input) == 0) {
-            printf("Ungueltige Zeichen in der Nachricht");
+            fprintf(stderr, "Ungueltige Zeichen im Cypher Text\n");
             return E_CYPHER_ILLEGAL_CHAR;
         }
 
         /* Inhalt des Keys pruefen */
         if (pruefeGueltigeZeichen(DECRYPT, k.chars) == 0) {
-            printf("Ungueltige Zeichen im Key");
+            fprintf(stderr, "Ungueltige Zeichen im Key\n");
             return E_KEY_ILLEGAL_CHAR;
         }
     }
@@ -148,7 +148,9 @@ void crypt(KEY key, const char* input, char* output, int modus, int len) {
  * @return 0 wenn alles ok, ansonsten Fehlercode
  */
 int encrypt(KEY key, const char* input, char* output) {
-    if (inputUndKeyPruefen(key, (char *) input, ENCRYPT) == 0) {
+    int pruefung = inputUndKeyPruefen(key, (char *) input, ENCRYPT);
+
+    if (pruefung == 0) {
 #ifdef DEBUG
         printf("Key: %s\n", key.chars);
 #endif
@@ -157,7 +159,7 @@ int encrypt(KEY key, const char* input, char* output) {
 
         return 0;
     } else {
-        return 5;
+        return pruefung;
     }
 }
 
@@ -169,7 +171,9 @@ int encrypt(KEY key, const char* input, char* output) {
  * @return 0 wenn alles ok, ansonsten Fehlercode
  */
 int decrypt(KEY key, const char* cypherText, char* output) {
-    if (inputUndKeyPruefen(key, (char *) cypherText, DECRYPT) == 0) {
+    int pruefung = inputUndKeyPruefen(key, (char *) cypherText, DECRYPT);
+
+    if (pruefung == 0) {
 #ifdef DEBUG
         printf("Key: %s\n", key.chars);
 #endif
@@ -178,6 +182,6 @@ int decrypt(KEY key, const char* cypherText, char* output) {
 
         return 0;
     } else {
-        return 5;
+        return pruefung;
     }
 }

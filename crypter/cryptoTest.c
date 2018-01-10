@@ -41,7 +41,7 @@ static char* testEntschluesseln() {
 static char* testKeyTooShort() {
     char* text = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     KEY k;
-    k.chars  = "T";
+    k.chars  = "";
     char ergebnis[strlen(text)];
     
     int erg = encrypt(k, text, ergebnis);

@@ -63,7 +63,7 @@ int pruefeGueltigeZeichen(int modus, const char* message) {
  */
 int inputUndKeyPruefen(KEY k, char* input, int modus) {
     /* Laenge des Keys pruefen */
-    if (strlen(k.chars) < 2) {
+    if (strlen(k.chars) < 1) {
         fprintf(stderr, "Key zu kurz\n");
         return E_KEY_TOO_SHORT;
     }

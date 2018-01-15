@@ -24,7 +24,16 @@ Fügt val in den Baum tree ein und gibt als Ergebnis den ergänzten Baum zurück
 Fügt die int-Werte, die in der Datei stehen in den Baum ein.
 
 ```xml
-...
+(defun insertfile (tree file)
+* (with-open-file (stream file)
+    (do ((baum nil)
+        (line (read-line stream nil)
+              (read-line stream nil)))
+        ((null line) baum)
+    (setf baum (insert baum (parse-integer line)))
+    )
+  )
+)
 ```
 
 #### contains tree val

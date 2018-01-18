@@ -20,7 +20,7 @@ Fügt val in den Baum tree ein und gibt als Ergebnis den ergänzten Baum zurück
 )
 ```
 
-#### insert tree filename
+#### insertfile tree filename
 Fügt die int-Werte, die in der Datei stehen in den Baum ein.
 
 ```xml
